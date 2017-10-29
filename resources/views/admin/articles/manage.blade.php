@@ -114,6 +114,10 @@
                         </tr>
                         @endforeach
                     </table>
+
+                </div>
+                <div class="box-body">
+                    {{ $articles->links() }}
                 </div>
             </div>
 
