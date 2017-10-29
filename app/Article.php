@@ -9,7 +9,7 @@ class Article extends Model
 {
     use Sluggable;
 
-    protected $fillable = ['title','cat_id', 'content','slug'];
+    protected $fillable = ['title','cat_id', 'content', 'slug', 'status'];
 
     public function categories() {
         return $this->hasOne('App\Category', 'id', 'cat_id');

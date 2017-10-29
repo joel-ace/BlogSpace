@@ -36,6 +36,7 @@ class ArticleController extends Controller
             'title' => 'required|min:5',
             'cat_id' => 'required|integer',
             'content' => 'required|min:10',
+            'status' => 'required|integer',
         ]);
 
         $user = Auth::user();
@@ -44,6 +45,7 @@ class ArticleController extends Controller
             'title' => $request->input('title'),
             'cat_id' => $request->input('cat_id'),
             'content' => $request->input('content'),
+            'status' => $request->input('status'),
         ]);
 
         $user->posts()->save($post);

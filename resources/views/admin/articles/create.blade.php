@@ -44,6 +44,14 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label>Publish Status</label>
+                                    <select name="status" class="form-control">
+                                        <option value="2" {{ old('status') == 2 ? 'selected' : '' }}>Published</option>
+                                        <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>Unpublished</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
                                     <label for="content">Content</label>
                                     <textarea name="content" class="form-control" rows="15">{{ old('title') }}</textarea>
                                 </div>
