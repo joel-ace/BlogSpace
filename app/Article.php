@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Article extends Model
 {
+    use Sluggable;
+
     protected $fillable = ['title','cat_id', 'content','slug'];
 
     public function categories() {
@@ -26,6 +29,15 @@ class Article extends Model
         return $query->with('categories', 'users');
     }
 
+    // generate slug using cviebrock/eloquent-sluggable package
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ],
+    ];
+}
     // Mutator (formats input and runs before saving to DB)
 
     // Accessor (formats and runs before the data is rendered)

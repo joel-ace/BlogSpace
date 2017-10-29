@@ -39,15 +39,11 @@ class ArticleController extends Controller
         ]);
 
         $user = Auth::user();
-        $slug = str_slug($request->input('title'), '-');
-
-        $slugs = Article::whereSlug($slug)->count();
 
         $post = new Article([
             'title' => $request->input('title'),
             'cat_id' => $request->input('cat_id'),
             'content' => $request->input('content'),
-            'slug' => $slug
         ]);
 
         $user->posts()->save($post);
