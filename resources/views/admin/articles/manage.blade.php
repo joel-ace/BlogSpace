@@ -88,7 +88,7 @@
                         @foreach($articles as $article)
                         <tr>
                             <td>
-                                <a href="/">{{ $article->title }}</a>
+                                <a href="{{ route('edit-article', ['id' => $article->id ]) }}">{{ $article->title }}</a>
                             </td>
                             <td>
                                 {{ $article->categories ? $article->categories->cat_title : ''  }}
@@ -97,11 +97,18 @@
                             <td>Status</td>
 
                             <td>
-                                {{ $article->created_at }} by
+                                <span class="small">
+                                    {{ $article->created_at }}
+                                </span> by
                                 <span class="label label-default">{{ $article->users->username }}</span>
                             </td>
                             <td>
-                                27/05/2017 by <span class="label label-default">Joel</span>
+                                @if(isset($article->lastUpdated->username))
+                                    <span class="small">
+                                        {{ $article->updated_at }}
+                                    </span>  by
+                                    <span class="label label-default">{{ $article->lastUpdated->username}}</span>
+                                @endif
                             </td>
                             <td>
                                 <a

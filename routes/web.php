@@ -37,6 +37,11 @@ Route::group(['prefix' => 'admin'], function() {
             'as' => 'manage-articles'
         ]);
 
+        Route::get('/edit/{id}', [
+            'uses' => 'ArticleController@editArticlePage',
+            'as' => 'edit-article'
+        ]);
+
     });
 
 //
@@ -73,9 +78,14 @@ Route::group(['prefix' => 'admin'], function() {
 
 Route::group(['prefix' => 'forms'], function() {
 
-    Route::post('/create-post', [
+    Route::post('/create-article', [
         'uses' => 'ArticleController@createArticle',
         'as' => 'article-form-submit'
+    ]);
+
+    Route::post('/edit-article', [
+        'uses' => 'ArticleController@editArticle',
+        'as' => 'edit-article-submit'
     ]);
 
 });

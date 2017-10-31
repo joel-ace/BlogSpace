@@ -36,12 +36,6 @@
         <div class="pull-right hidden-xs">
 
         </div>
-        <strong>
-            Copyright &copy; 2017. Developed by
-            <a href=# target="_blank">
-                Mevana Resources & Solutions
-            </a>.
-        </strong> All rights reserved.
     </footer>
 </div>
 

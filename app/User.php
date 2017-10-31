@@ -31,6 +31,10 @@ class User extends Authenticatable
         return $this->hasMany('\App\Article');
     }
 
+    public function lastUpdated() {
+        return $this->hasMany('\App\Article', 'last_modified_by');
+    }
+
     // Mutator (formats input and runs before saving to DB)
     public function setUsernameAttribute($value) {
         $this->attributes['username'] = strtolower($value);

@@ -20,7 +20,7 @@ class Article extends Model
     }
 
     public function lastUpdated() {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo('App\User', 'last_modified_by');
     }
 
     // Creating a query scope to query both categories and user
@@ -43,7 +43,11 @@ class Article extends Model
     // Accessor (formats and runs before the data is rendered)
 
     public function getCreatedAtAttribute($value) {
-        return date('d/m/Y', strtotime($value));
+        return date('d/m/Y \a\t g:ia', strtotime($value));
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        return date('d/m/Y \a\t g:ia', strtotime($value));
     }
 
 }
