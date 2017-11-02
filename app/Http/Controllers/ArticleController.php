@@ -44,6 +44,21 @@ class ArticleController extends Controller
         ]);
     }
 
+    public function deleteArticle($id) {
+        $article = Article::find($id);
+
+        if($article) {
+            $article->delete();
+            return redirect()
+                ->back()
+                ->with('success', 'Article successfully deleted');
+        }
+
+        return redirect()
+            ->back()
+            ->with('error', 'This article does not exist or has been previously deleted');
+    }
+
     public function createArticle(Request $request) {
         $this->validate($request, [
             'title' => 'required|min:5',

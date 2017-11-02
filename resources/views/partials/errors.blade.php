@@ -1,9 +1,7 @@
 @if(Session::has('error'))
     <div class="alert alert-danger">
         <ul>
-            <ul>
-                <li>{{ Session::get('error') }}</li>
-            </ul>
+            <li>{{ Session::get('error') }}</li>
         </ul>
     </div>
 @endif

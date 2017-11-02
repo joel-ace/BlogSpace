@@ -42,6 +42,11 @@ Route::group(['prefix' => 'admin'], function() {
             'as' => 'edit-article'
         ]);
 
+        Route::get('/delete/{id}', [
+            'uses' => 'ArticleController@deleteArticle',
+            'as' => 'delete-article'
+        ]);
+
     });
 
 //

@@ -7,6 +7,10 @@
             <h1><i class="fa fa-newspaper-o"></i> <i class="fa fa-pencil"></i>Manage</h1>
         </section>
 
+        <section class="content-header">
+            @include('partials.errors')
+        </section>
+
         <section class="content">
             <div class="box">
                 <div class="box-body">
@@ -113,7 +117,7 @@
                             <td>
                                 <a
                                     class="btn btn-xs btn-danger"
-                                    href="/"
+                                    href="{{ route('delete-article', ['id' => $article->id ]) }}"
                                 >
                                     <i class="fa fa-remove"></i>
                                 </a>
