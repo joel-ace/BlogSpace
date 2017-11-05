@@ -5,7 +5,7 @@
         <div class="login-box-body">
             <p class="login-box-msg">Login to your account</p>
 
-            @include('partials.errors')
+            @include('partials.notifications')
 
             <form action="{{ route('login') }}" method="post">
                 <div class="form-group has-feedback">

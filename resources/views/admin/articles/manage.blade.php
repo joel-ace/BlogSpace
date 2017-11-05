@@ -8,7 +8,7 @@
         </section>
 
         <section class="content-header">
-            @include('partials.errors')
+            @include('partials.notifications')
         </section>
 
         <section class="content">
@@ -22,7 +22,12 @@
                                         <select name="cat_id" class="form-control">
                                             <option value="">All Categories</option>
                                             @foreach($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->cat_title }}</option>
+                                                <option
+                                                    value="{{ $category->id }}"
+                                                    {{ isset($categoryId) && $categoryId == $category->id ? "selected" : "" }}
+                                                >
+                                                    {{ $category->cat_title }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -30,39 +35,56 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <select name="pub_status" class="form-control">
-                                            <option value="0">All Publish Status</option>
-                                            <option value="1">Unpublished</option>
-                                            <option value="2">Published</option>
+                                            <option value="">All Publish Status</option>
+                                            <option
+                                                value="1"
+                                                {{ isset($publishStatus) && $publishStatus == 1 ? "selected" : ""}}
+                                            >
+                                                Unpublished
+                                            </option>
+                                            <option
+                                                value="2"
+                                                {{ isset($publishStatus) && $publishStatus == 2 ? "selected" : ""}}
+                                            >
+                                                Published
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <select name="feat_status" class="form-control">
-                                            <option value="0">All Featured Status</option>
-                                            <option value="1">Not Featured</option>
-                                            <option value="2">Featured</option>
+                                            <option value="">All Featured Status</option>
+                                            <option
+                                                value="1"
+                                                {{ isset($featuredStatus) && $featuredStatus == 1 ? "selected" : ""}}
+                                            >
+                                                Not Featured
+                                            </option>
+                                            <option
+                                                value="2"
+                                                {{ isset($featuredStatus) && $featuredStatus == 2 ? "selected" : ""}}
+                                            >
+                                                Featured
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <input type="submit" class="btn btn-primary" value="Go" />
                                 </div>
-                                <div class="clearfix"></div>
                             </form>
                         </div>
                         <div class="col-md-4">
-                            <form method="get" action="admin">
-                                <input type="hidden" name="jmod" value="articles" />
-                                <input type="hidden" name="page" value="manage-articles" />
+                            <form method="get" action="">
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <input
                                             type="text"
-                                            name="search-article"
+                                            name="q"
                                             class="form-control"
                                             placeholder="Search"
-                                            value=""
+                                            value="{{ isset($queryString) ? $queryString : "" }}"
                                         >
                                     </div>
                                 </div>
@@ -128,7 +150,7 @@
 
                 </div>
                 <div class="box-body">
-                    {{ $articles->links() }}
+                    {{ $articles->appends(request()->query())->links() }}
                 </div>
             </div>
 

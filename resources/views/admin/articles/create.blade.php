@@ -14,7 +14,7 @@
                     <div class="box">
                         <div class="box-header with-border">
                             <h3 class="box-title">Article</h3>
-                            @include('partials.errors')
+                            @include('partials.notifications')
                         </div>
 
                         <form

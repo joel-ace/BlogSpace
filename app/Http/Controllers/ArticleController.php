@@ -9,22 +9,49 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    private function getArticles($maxPerPage) {
+    private function getAllArticles($maxPerPage) {
         return Article::manage()
             ->orderBy('created_at', 'desc')
             ->paginate($maxPerPage);
     }
 
-    public function listArticles() {
-        $category = Category::all();;
-        return view('admin.articles.manage', [
-            'articles' => $this->getArticles(3),
-            'categories' => $category
-        ]);
+    public function getAllCategories() {
+        return Category::all();
+    }
+
+    public function listArticles(Request $request) {
+        $queryString = $request->get('q');
+        $categoryId = $request->get('cat_id');
+        $publishStatus = $request->get('pub_status');
+        $featuredStatus = $request->get('feat_status');
+
+        $categories = $this->getAllCategories();
+        $articles = $this->getAllArticles(3);
+
+        // Handles querying for search
+        if($queryString) {
+            $articles = Article::adminSearch($request->input('q'))->paginate(1);
+
+            if(!$articles) {
+                return redirect()
+                    ->back()
+                    ->with('info', 'No results found for your search');
+            }
+
+            return view('admin.articles.manage', compact(['articles', 'categories', 'queryString']));
+        } elseif($categoryId || $publishStatus || $featuredStatus) {
+            $articles = Article::sortArticles($categoryId, $publishStatus, $featuredStatus)->paginate(3);
+            return view('admin.articles.manage', compact([
+                'articles', 'categories', 'categoryId', 'publishStatus', 'featuredStatus'
+            ]));
+        }
+
+        return view('admin.articles.manage', compact(['articles', 'categories']));
+
     }
 
     public function createArticlePage(Request $request) {
-        $category = Category::all();
+        $category = $this->getAllCategories();
         return view('admin.articles.create', [
            'categories' => $category,
             'action' => 'create',
@@ -33,7 +60,7 @@ class ArticleController extends Controller
     }
 
     public function editArticlePage($id) {
-        $category = Category::all();
+        $category = $this->getAllCategories();
 
         $article = Article::find($id);
 

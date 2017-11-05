@@ -29,6 +29,21 @@ class Article extends Model
         return $query->with('categories', 'users');
     }
 
+    public function scopeAdminSearch($query, $searchTerm) {
+        return $query->where('title', 'LIKE', '%' . $searchTerm . '%')
+            ->with('categories', 'users');
+    }
+
+    public function scopeSortArticles($query, $category, $publishedStatus, $featuredStatus) {
+        return $query->when($category, function ($query) use ($category) {
+            return $query->where('cat_id', $category);
+        })->when($publishedStatus, function ($query) use ($publishedStatus) {
+            return $query->where('status', $publishedStatus);
+        })->when($featuredStatus, function ($query) use ($featuredStatus) {
+            return $query->where('featured', $featuredStatus);
+        })->with('categories', 'users');
+    }
+
     // generate slug using cviebrock/eloquent-sluggable package
     public function sluggable()
     {
